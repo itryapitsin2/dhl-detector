@@ -1,0 +1,38 @@
+version: '3'
+services:
+  geoserver:
+    hostname: geoserver
+    build:
+      context: .
+      dockerfile: ./docker/geoserver.Dockerfile
+    image: geoserver
+
+  db:
+    hostname: db
+    build:
+      context: .
+      dockerfile: ./docker/database.Dockerfile
+    image: db
+    env_file: ./docker/database.env
+    ports:
+      "25432:5432"
+
+  front-end:
+    hostname: front-end
+    build:
+      context: .
+      dockerfile: ./docker/front-end.Dockerfile
+    image: front-end
+    ports:
+      - "8080:80"
+
+  back-end:
+    hostname:
+      back-end
+    build:
+      context: .
+      dockerfile: ./docker/back-end.Dockerfile
+    image: back-end
+    env_file: ./docker/back-end.env
+    ports:
+      - "8081:80"
